@@ -1,0 +1,73 @@
+.jobseeker-auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 1rem;
+  background-color: #f4f4f4;
+  min-height: 80vh;
+}
+
+.auth-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.auth-card h2 {
+  color: #0b3d91;
+  margin-bottom: 1.5rem;
+}
+
+.auth-card input {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.error {
+  color: red;
+  font-size: 0.85rem;
+  text-align: left;
+  margin: -0.5rem 0 0.5rem 0;
+}
+
+.submit-btn {
+  background-color: #0b3d91;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #09407f;
+}
+
+.toggle-text {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.toggle-text span {
+  color: #0b3d91;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.message {
+  color: green;
+  margin-top: 1rem;
+  font-weight: 500;
+}

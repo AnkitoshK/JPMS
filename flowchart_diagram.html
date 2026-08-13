@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JPMS - Platform Flowcharts</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+      margin: 0;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #38bdf8;
+      margin-bottom: 10px;
+    }
+    h2 {
+      color: #38bdf8;
+      margin-top: 30px;
+      margin-bottom: 15px;
+    }
+    p {
+      color: #94a3b8;
+      margin-bottom: 25px;
+    }
+    .btn-container {
+      margin-bottom: 20px;
+    }
+    button {
+      background-color: #0284c7;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 0 5px;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background-color: #0369a1;
+    }
+    .diagram-card {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      width: 95%;
+      max-width: 1200px;
+      overflow-x: auto;
+      margin-bottom: 30px;
+    }
+    .mermaid {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Job Portal Management System (JPMS)</h1>
+  <p>Platform Workflow Flowcharts</p>
+
+  <div class="btn-container">
+    <button onclick="window.print()">🖨️ Print / Save as PDF</button>
+  </div>
+
+  <h2>1. Job Application & Interview Scheduling Flowchart</h2>
+  <div class="diagram-card">
+    <div class="mermaid">
+flowchart TD
+    A[Jobseeker browses /jobs] --> B{Authenticated?}
+    B -- No --> C[Redirect to /jobseeker-login with return URL]
+    B -- Yes --> D[Click Apply on Job]
+    D --> E[Fill Cover Letter & Attach/Select Resume]
+    E --> F[Submit Application via POST /api/applications]
+    F --> G[DB stores application with status = 'pending']
+
+    G --> H[Admin logs into Admin Dashboard]
+    H --> I[Admin opens Application Management]
+    I --> J{Admin Action}
+    
+    J -- Review --> K[Status updated to 'under_review' or 'shortlisted']
+    J -- Schedule Interview --> L[Admin inputs Date, Time, Meeting Link & Notes]
+    L --> M[DB updates status = 'interview_scheduled']
+    M --> N[Nodemailer dispatches HTML Email to Jobseeker]
+    N --> O[Jobseeker receives email & sees interview details in /applied-jobs timeline]
+    
+    J -- Reject --> P[Status updated to 'rejected' & optional email sent]
+    J -- Offer Job --> Q[Status updated to 'offered' & offer email sent]
+    </div>
+  </div>
+
+  <h2>2. Authentication & JWT Token Flowchart</h2>
+  <div class="diagram-card">
+    <div class="mermaid">
+flowchart TD
+    A[User enters credentials] --> B[POST /api/auth/login]
+    B --> C{Rate limit exceeded?}
+    C -- Yes --> D[Return 429 Too Many Requests]
+    C -- No --> E[Query DB for user email]
+    E --> F{User exists?}
+    F -- No --> G[Return 401 Invalid Credentials]
+    F -- Yes --> H[Verify password using bcrypt.compare]
+    H -- Invalid --> G
+    H -- Valid --> I[Generate JWT token with role & expiration]
+    I --> J[Return token & user profile object JSON]
+    J --> K[Client stores token in localStorage & AuthContext]
+    K --> L[Axios Interceptor attaches Bearer token to all future requests]
+    
+    L --> M{Backend validates token}
+    M -- Token Expired / Invalid --> N[Return 401 Unauthorized]
+    N --> O[Client Interceptor catches 401 -> clears storage -> redirects to login]
+    M -- Valid Token --> P[Process request successfully]
+    </div>
+  </div>
+
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+  </script>
+</body>
+</html>

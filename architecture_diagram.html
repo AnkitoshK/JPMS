@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JPMS - System Architecture Diagram</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+      margin: 0;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #38bdf8;
+      margin-bottom: 10px;
+    }
+    p {
+      color: #94a3b8;
+      margin-bottom: 25px;
+    }
+    .btn-container {
+      margin-bottom: 20px;
+    }
+    button {
+      background-color: #0284c7;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 0 5px;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background-color: #0369a1;
+    }
+    .diagram-card {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      width: 95%;
+      max-width: 1200px;
+      overflow-x: auto;
+    }
+    .mermaid {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Job Portal Management System (JPMS)</h1>
+  <p>Target Full-Stack System Architecture Diagram</p>
+
+  <div class="btn-container">
+    <button onclick="window.print()">🖨️ Print / Save as PDF</button>
+  </div>
+
+  <div class="diagram-card">
+    <div class="mermaid">
+graph TB
+    subgraph "Frontend Layer (React 19 SPA)"
+        UI["React Router v7 / Components<br/>(Home, Jobs, Applied Jobs, Profile, Admin Pages)"]
+        CTX["Auth Context<br/>(Jobseeker & Admin State)"]
+        API_SVC["Centralized Axios API Client<br/>(api.js with JWT Interceptor & Auto-Bearer)"]
+        
+        UI --> CTX
+        UI --> API_SVC
+    end
+
+    subgraph "Backend API Gateway (Express / Node.js)"
+        MW["Middleware Layer<br/>- Rate Limiters (express-rate-limit)<br/>- Security Headers (helmet)<br/>- JWT Auth Middleware<br/>- Multer File Upload Handler"]
+        
+        R_AUTH["Auth Routes<br/>(/api/auth)"]
+        R_JOBS["Job Routes<br/>(/api/jobs)"]
+        R_APP["Application Routes<br/>(/api/applications)"]
+        R_SEEKER["Jobseeker Routes<br/>(/api/jobseekers)"]
+        R_ADMIN["Admin Routes<br/>(/api/admin)"]
+
+        API_SVC <-->|HTTPS / REST API| MW
+        MW --> R_AUTH
+        MW --> R_JOBS
+        MW --> R_APP
+        MW --> R_SEEKER
+        MW --> R_ADMIN
+    end
+
+    subgraph "Business & Services Layer"
+        C_AUTH["Auth Controller"]
+        C_JOBS["Job Controller"]
+        C_APP["Application Controller"]
+        C_SEEKER["Jobseeker Controller"]
+        C_ADMIN["Admin Controller"]
+        
+        MAIL["Nodemailer Email Service<br/>(Interview & Reset Notifications)"]
+        FS["File Storage Handler<br/>(/uploads/resumes & /uploads/profilePhotos)"]
+
+        R_AUTH --> C_AUTH
+        R_JOBS --> C_JOBS
+        R_APP --> C_APP
+        R_SEEKER --> C_SEEKER
+        R_ADMIN --> C_ADMIN
+
+        C_APP --> MAIL
+        C_AUTH --> MAIL
+        C_SEEKER --> FS
+        C_APP --> FS
+    end
+
+    subgraph "Database Layer (MySQL)"
+        DB[("MySQL Database: job_portal<br/>- jobseekers<br/>- admins<br/>- jobs<br/>- applications<br/>- password_resets<br/>- contact_messages")]
+        
+        C_AUTH <-->|mysql2/promise Pool| DB
+        C_JOBS <-->|mysql2/promise Pool| DB
+        C_APP <-->|mysql2/promise Pool| DB
+        C_SEEKER <-->|mysql2/promise Pool| DB
+        C_ADMIN <-->|mysql2/promise Pool| DB
+    end
+    </div>
+  </div>
+
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+  </script>
+</body>
+</html>

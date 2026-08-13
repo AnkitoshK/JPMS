@@ -1,0 +1,212 @@
+.jobs-page-split {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  min-height: 80vh;
+}
+
+.jobs-left {
+  flex: 1;
+  padding: 20px;
+  border-right: 2px solid #e0e0e0;
+  overflow-y: auto;
+}
+
+.jobs-right {
+  flex: 2;
+  padding: 20px;
+  background-color: #f9f9f9;
+  overflow-y: auto;
+}
+
+.job-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  padding: 15px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.2s ease;
+}
+
+.job-card:hover {
+  background-color: #f0f8ff;
+}
+
+.job-card.active {
+  border: 2px solid #007bff;
+  background-color: #e9f5ff;
+}
+
+.jobs-title {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #333;
+}
+.jobs-title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.refresh-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: transform 0.2s ease;
+}
+
+.refresh-btn:hover {
+  transform: rotate(90deg);
+  color: #007bff;
+}
+
+.job-details h2 {
+  margin-bottom: 10px;
+}
+
+.job-details p, .job-details ul {
+  margin-bottom: 10px;
+}
+
+.job-details ul {
+  padding-left: 20px;
+}
+
+.job-details li {
+  margin-bottom: 5px;
+}
+
+.job-form input {
+  display: block;
+  width: 100%;
+  margin: 6px 0;
+  padding: 8px;
+}
+.job-form button {
+  margin-top: 10px;
+  padding: 10px 20px;
+}
+.job-list {
+  list-style: none;
+  padding: 0;
+}
+.job-item {
+  border: 1px solid #ccc;
+  margin: 6px 0;
+  padding: 8px;
+}
+.job-item button {
+  margin-left: 10px;
+}
+
+
+.apply-btn {
+  margin-top: 15px;
+  padding: 10px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.apply-btn:hover {
+  background-color: #0056b3;
+}
+
+.pagination-center {
+  margin-top: 20px;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 6px; /* Reduce this if you want even tighter buttons */
+  flex-wrap: wrap;
+}
+
+.pagination-center button {
+  padding: 6px 10px;
+  font-size: 16px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.pagination-center button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-info {
+  margin: 0 8px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+  color: #555;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.placeholder-image {
+  width: 180px;
+  height: auto;
+  margin-bottom: 20px;
+  animation: float 2s ease-in-out infinite;
+}
+
+.placeholder-text {
+  font-size: 1.1rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 999;
+}
+
+.modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+}
+
+.modal-actions button {
+  margin: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.modal-actions .confirm {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}

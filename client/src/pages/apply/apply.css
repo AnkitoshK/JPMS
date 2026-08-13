@@ -1,0 +1,104 @@
+/* Layout container to support footer at bottom */
+.apply-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+
+.apply-content {
+  flex: 1;
+  padding: 2rem 1rem;
+}
+
+/* Main page styling */
+.apply-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.apply-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+label {
+  font-weight: 500;
+  color: #444;
+}
+
+input[type="file"] {
+  margin-top: 6px;
+}
+
+button[type="submit"],
+.apply-page button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover,
+.apply-page button:hover {
+  background-color: #0056b3;
+}
+
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 12px;
+  margin-top: 1rem;
+  border-left: 5px solid #28a745;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+/* Cartoon fallback */
+.not-found {
+  text-align: center;
+  padding: 2rem;
+}
+
+.cartoon-img {
+  width: 150px;
+  margin-bottom: 1rem;
+}
+
+/* Sticky footer styles */
+.apply-footer {
+  text-align: center;
+  padding: 1rem 0;
+  background-color: #333;
+  color: #fff;
+  font-size: 0.9rem;
+}
